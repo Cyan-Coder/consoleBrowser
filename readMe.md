@@ -22,4 +22,4 @@ Then you'll need to get a domain and make a website.(doesn't need to be complica
 Then upload your project.
 And now everybody can open it and use/play it.
 
-I'm not an experienced programmer so if you want to help let me know.
+I'm not an experienced programmer so if you want to help or if you have a comment let me know.
