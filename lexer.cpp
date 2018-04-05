@@ -1,14 +1,5 @@
 #include "lexer.h"
 
-std::ostringstream content;
-std::string buffer;
-std::vector<char> lexArray;
-std::vector<int> lexedFile;
-std::vector<char> lexedText;
-std::vector<std::string> textConcatted;
-
-bool wasChar = false;
-
 //read the file
 void lexer::readFile(const char *fileName) {
 	std::ifstream file(fileName);
