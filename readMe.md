@@ -7,7 +7,7 @@ First I must find a console project.
 Second I must download it.
 Thirt I must compile the code.
 And then i can finally run it.
-It would be a lot easier if i could instantly run the program.
+It would be a lot easier if i could search for it and instantly run the program.
 
 Also this project aims to create a console Markup Language.
 It will look something like this.
