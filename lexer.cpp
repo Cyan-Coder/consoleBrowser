@@ -8,6 +8,18 @@ lexer::lexer(std::vector<char> source)
 void lexer::lexFile() {
 	for (int i = 0; i < source.size(); i++) {
 		//check for <p>, </p>, <a>, </a> or character
+		if (source.at(i) == '@')
+		{
+			skipLine = true;
+		}
+		if (skipLine)
+		{
+			if (source.at(i) == '\n')
+			{
+				skipLine = false;
+			}
+			continue;
+		}
 		if (source.at(i) == '<') {
 			//<p>
 			if ((source.at(i + 1) == 'p' || source.at(i + 1) == 'P') && source.at(i + 2) == '>') {
@@ -65,3 +77,4 @@ void lexer::lexFile() {
 		};
 	};
 };
+
