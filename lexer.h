@@ -16,7 +16,6 @@ public:
 	std::vector<char> lexedText;
 	std::vector<std::string> textConcatted;
 	bool wasChar = false;
-	void readFile(const char *fileName);
-	void stringToVectorArray();
+	bool skipLine = false;
 	void lexFile();
 };
