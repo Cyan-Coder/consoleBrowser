@@ -8,9 +8,10 @@
 
 class lexer {
 public:
-	std::ostringstream content;
+	lexer(std::vector<char> source);
+
 	std::string buffer;
-	std::vector<char> lexArray;
+	std::vector<char> source;
 	std::vector<int> lexedFile;
 	std::vector<char> lexedText;
 	std::vector<std::string> textConcatted;

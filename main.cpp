@@ -1,9 +1,10 @@
 #include "lexer.h"
+#include "utilities.h"
 
 int main() {
-	lexer lex;
-	lex.readFile("test.chtml");
-	lex.stringToVectorArray();
+	std::vector<char> source = util::readFile("test.chtml");
+
+	lexer lex(source);
 	lex.lexFile();
 
 	for (int i = 0; i < lex.textConcatted.size(); i++)

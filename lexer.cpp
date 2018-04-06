@@ -1,48 +1,31 @@
 #include "lexer.h"
 
-//read the file
-void lexer::readFile(const char *fileName) {
-	std::ifstream file(fileName);
-	if (file.fail()) {
-		std::cerr << "error whilst opening file\n";
-		system("PAUSE");
-		std::exit(1);
-	};
-
-	if (file) {
-		content << file.rdbuf();
-		file.close();
-	};
-};
-
-//change the sting into an vector array
-void lexer::stringToVectorArray() {
-	for (int i = 0; i < content.str().size(); i++) {
-		this->lexArray.push_back(content.str().at(i));
-	};
-};
+lexer::lexer(std::vector<char> source)
+	: source(source)
+{
+}
 
 void lexer::lexFile() {
-	for (int i = 0; i < lexArray.size(); i++) {
+	for (int i = 0; i < source.size(); i++) {
 		//check for <p>, </p>, <a>, </a> or character
-		if (lexArray.at(i) == '<') {
+		if (source.at(i) == '<') {
 			//<p>
-			if ((lexArray.at(i + 1) == 'p' || lexArray.at(i + 1) == 'P') && lexArray.at(i + 2) == '>') {
+			if ((source.at(i + 1) == 'p' || source.at(i + 1) == 'P') && source.at(i + 2) == '>') {
 				this->lexedFile.push_back(1);
 				i += 2;
 				wasChar = false;
 			}//</p>
-			else if ((lexArray.at(i + 1) == '/') && (lexArray.at(i + 2) == 'p' || lexArray.at(i + 2) == 'P') && lexArray.at(i + 3) == '>') {
+			else if ((source.at(i + 1) == '/') && (source.at(i + 2) == 'p' || source.at(i + 2) == 'P') && source.at(i + 3) == '>') {
 				this->lexedFile.push_back(2);
 				i += 3;
 				wasChar = false;
 			}//<a>
-			else if ((lexArray.at(i + 1) == 'a' || lexArray.at(i + 1) == 'A') && lexArray.at(i + 2) == '>') {
+			else if ((source.at(i + 1) == 'a' || source.at(i + 1) == 'A') && source.at(i + 2) == '>') {
 				this->lexedFile.push_back(3);
 				i += 2;
 				wasChar = false;
 			}//</a>
-			else if (lexArray.at(i + 1) == '/' && (lexArray.at(i + 2) == 'a' || lexArray.at(i + 2) == 'A') && lexArray.at(i + 3) == '>') {
+			else if (source.at(i + 1) == '/' && (source.at(i + 2) == 'a' || source.at(i + 2) == 'A') && source.at(i + 3) == '>') {
 				this->lexedFile.push_back(4);
 				i += 3;
 				wasChar = false;
@@ -53,12 +36,12 @@ void lexer::lexFile() {
 			if (!wasChar) {
 				//put a dummy character '~' between the different pieces of text
 				this->lexedText.push_back('~');
-				this->lexedText.push_back(lexArray.at(i));
+				this->lexedText.push_back(source.at(i));
 				this->lexedFile.push_back(0);
 				wasChar = true;
 			}
 			else {
-				this->lexedText.push_back(lexArray.at(i));
+				this->lexedText.push_back(source.at(i));
 			};
 		};
 	};
