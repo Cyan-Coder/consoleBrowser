@@ -17,7 +17,8 @@ Here's how it will work.
 
 First you need to define your tags in a .def file.
 Like this:
-/////////////////////////////////////////////////////////////
+style.def
+////////////////////////////
 \<p> = {
   type: TEXT;
   fontColour: RED;
@@ -29,14 +30,18 @@ Like this:
   fontColour: WHITE;
   backColour: BLUE;
 }
-  
+////////////////////////////
 After that you can create your website in a .chtml file.
 like this:
 
-@import "style.def" <--- this is the above written file
+index.chtml
+//////////////////////////////////////////////////////////////////////////
+@import "style.def"
 
 \<p>This text is RED with a GREEN background\</p>
+
 \<a>youtube.com;This link is WHITE on BLUE and take you to youtube\</a>
+//////////////////////////////////////////////////////////////////////////
 
 As you can see it looks a bit like HTML. But the major difference is that in this markup language it's easy to create your own tags.
 
