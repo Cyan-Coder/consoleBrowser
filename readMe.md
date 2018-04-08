@@ -18,13 +18,13 @@ Here's how it will work.
 First you need to define your tags in a .def file.
 Like this:
 
-<p> = {
+\<p> = {
   type: TEXT;
   fontColour: RED;
   backColour: GREEN;
 }
 
-<a> = {
+\<a> = {
   type: LINK;
   fontColour: WHITE;
   backColour: BLUE;
