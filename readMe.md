@@ -36,7 +36,7 @@ like this:
 @import "style.def" <--- this is the above written file
 
 \<p>This text is RED with a GREEN background\</p>
-\<a>http://youtube.com;This link is WHITE on BLUE and take you to youtube\</a>
+\<a>youtube.com;This link is WHITE on BLUE and take you to youtube\</a>
 
 As you can see it looks a bit like HTML. But the major difference is that in this markup language it's easy to create your own tags.
 
