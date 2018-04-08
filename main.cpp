@@ -11,14 +11,12 @@ int main() {
 	for (directive d : pre.getDirectives())
 	{
 		std::cout << d.name << " : " << d.content << "\n";
-	}
+	};
 
 	lexer lex(source);
 	lex.lexFile();
-
-	for (int i = 0; i < lex.textConcatted.size(); i++)
-	{
-		std::cout << lex.textConcatted.at(i) << "\n";
+	for (std::string s : lex.getStructeredFile()) {
+		std::cout << s << "\n";
 	};
 	system("PAUSE");
 };
