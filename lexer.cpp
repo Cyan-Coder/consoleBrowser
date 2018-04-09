@@ -6,53 +6,107 @@ lexer::lexer(std::vector<char> source)
 {
 };
 
-std::vector<std::string> lexer::getStructeredFile() {
-	//returns the structured file vector
-	return structuredFile;
-};
-
 //function that lexes the file
-void lexer::lexFile() {
-	//check the intire content of the file
-	for (int i = 0; i < source.size(); i++) {
-		//check for preprocessor statements
-		//pps starts with @
-		if (source.at(i) == '@')
-		{
-			skipLine = true;
-		};
-		if (skipLine)
-		{
-			if (source.at(i) == '\n')
-			{
-				skipLine = false;
+std::vector<token> lexer::lexFile() {
+	std::vector<token> res;
+
+	// Keep reading until we reach the end of the file.
+	while (pointer < source.size()) {
+		char c = readChar();
+		if (ignore(c)) continue;
+		// Found a tag.
+		if (c == '<') {
+			if (readChar() == '/') {
+				// Found end tag.
+				// We subtract 2 from the pointer because we read 2 characters before
+				// and we want to make sure that these appear in the output.
+				pointer -= 2;
+				std::string tag = readTag();
+				token token = {
+					END_TAG,
+					tag
+				};
+				res.push_back(token);
+			}
+			else {
+				// Found a start tag.
+				// We subtract 2 from the pointer because we read 2 characters before
+				// and we want to make sure that these appear in the output.
+				pointer -= 2;
+				std::string tag = readTag();
+				token token = {
+					START_TAG,
+					tag
+				};
+				res.push_back(token);
 			};
-			continue;
-		};
-		//search for a tag
-		if (source.at(i) == '<') {
-			offset = 0;
-			current = "";
-			while (source.at(i + offset) != '>') {
-				current += source.at(i + offset);
-				offset++;
-			};
-			current += '>';
-			structuredFile.push_back(current);
-			i += offset;
 		}
-		else if (source.at(i) == '\n') {
-			continue;
-		}//it is a character
 		else {
-			offset = 0;
-			current = "";
-			while (source.at(i + offset) != '<') {
-				current += source.at(i + offset);
-				offset++;
+			// We found some text that the user wants to display.
+			// Subtract 1 from the pointer so that we include the one character
+			// that we read at the top of this function.
+			pointer--;
+			std::string text = readText();
+			token token = {
+				TEXT,
+				text
 			};
-			structuredFile.push_back(current);
-			i += offset - 1;
+			res.push_back(token);
 		};
 	};
+
+	return res;
+};
+
+std::string lexer::readTag() {
+	std::string res;
+	char c;
+	while ((c = readChar()) != '>') {
+		res += c;
+	}
+	res += '>';
+	return res;
+};
+
+std::string lexer::readText() {
+	std::string res;
+	char c;
+	bool loop = true;
+	while (loop) {
+		c = readChar();
+		// This symbol could either be included in the text, or signal
+		// the start of a tag and therefore the end of the text.
+		if (c == '<') {
+			// If there is no space after the < symbol we will assume
+			// that this is the start of a tag.
+			if (readChar() != ' ') {
+				loop = false;
+			}
+			else {
+				// If there is a space, the user wants to output this
+				// symbol to the screen, so add it to the text.
+				res += c;
+			};
+			// Subtract one from the pointer to compensate reading a char
+			// in the if statement above.
+			pointer--;
+		}
+		else {
+			res += c;
+		};
+	};
+	pointer--;
+	return res;
+};
+
+char lexer::readChar() {
+	char c = source[pointer++];
+	if (c == '\n') {
+		line++;
+	};
+	return c;
+};
+
+bool lexer::ignore(char c) {
+	return c == '\n' || c == '\t' || c == ' ' || c == '\r';
 };

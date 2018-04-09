@@ -8,15 +8,17 @@ int main() {
 	preprocessor pre(source);
 	pre.run();
 
-	for (directive d : pre.getDirectives())
-	{
-		std::cout << d.name << " : " << d.content << "\n";
-	};
+	//for (directive d : pre.getDirectives())
+	//{
+	//	std::cout << d.name << " : " << d.content << "\n";
+	//};
 
 	lexer lex(source);
-	lex.lexFile();
-	for (std::string s : lex.getStructeredFile()) {
-		std::cout << s << "\n";
+	std::vector<token> tokens = lex.lexFile();
+
+	for (token t : tokens) {
+		std::cout << t.type << " (" << t.value << ")\n";
 	};
+
 	system("PAUSE");
 };

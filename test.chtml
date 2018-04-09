@@ -1,8 +1,2 @@
-~
-@import "style.def"
-@define ZERO 0 
-@import "style2.def"
-~
-
-<p>text written here</p>
-<a>link here<a>hi there</a></a>
+<a>youtube.com;Hello, world</a>
+<p>This is my text.</p>

@@ -18,7 +18,7 @@ enum colour {
 	MAGENTA = 0x000D,
 	YELLOW = 0x000E,
 	WHITE = 0x000F,
-};	
+};
 
 //base class for every tag
 class tag {
@@ -84,7 +84,7 @@ class linkTag : public tag {
 	//content contains the text between the two tags
 	std::string m_content;
 	//constructor of the linkTag
-	linkTag(colour fontColour, colour backColour){
+	linkTag(colour fontColour, colour backColour) {
 		setFontColour(fontColour);
 		setBackColour(backColour);
 	}
